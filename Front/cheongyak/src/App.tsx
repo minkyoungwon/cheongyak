@@ -3,9 +3,11 @@ import Intro from "./pages/Intro";
 import NoticeBoard from "./pages/NoticeBoard";
 import ScrapBoard from "./pages/ScrapBoard";
 import ScrapDetail from "./pages/ScrapDetail";
+import SummarySidebar from "./components/SummarySidebar";
 
 export default function App() {
   return (
+    <>
     <Router>
       <Routes>
         <Route path="/" element={<Intro />} />
@@ -14,5 +16,8 @@ export default function App() {
         <Route path="/youtube-scrap/:id" element={<ScrapDetail />} />
       </Routes>
     </Router>
+    
+      <SummarySidebar />
+    </>
   );
 }
