@@ -7,10 +7,13 @@ export default function ScrapBoard() {
   const setScraps = useScrapStore((state) => state.setScraps);
   const scraps = useScrapStore((state) => state.scraps);
   const scrappedIds = useScrapStore((state) => state.scrappedIds);
+  const loadScrapsFromSupabase = useScrapStore((state) => state.loadScrapsFromSupabase);
+
   const [query, setQuery] = useState("청약");
   const [loading, setLoading] = useState(false);
-  const [showScrappedOnly, setShowScrappedOnly] = useState(false); // ✅ 위치 수정
+  const [showScrappedOnly, setShowScrappedOnly] = useState(false);
 
+  // 유튜브 영상 검색
   const handleSearch = async () => {
     setLoading(true);
     try {
@@ -23,8 +26,10 @@ export default function ScrapBoard() {
     }
   };
 
+  // 최초 진입 시 유튜브 영상 불러오기 + 스크랩 ID 불러오기
   useEffect(() => {
-    handleSearch(); // 첫 로딩 시 기본 검색어로 호출
+    handleSearch();
+    loadScrapsFromSupabase();
   }, []);
 
   return (
@@ -50,25 +55,27 @@ export default function ScrapBoard() {
 
       {/* 스크랩 필터 버튼 */}
       <div className="mb-4">
-
         <button
           onClick={() => setShowScrappedOnly((prev) => !prev)}
           className="px-4 py-2 bg-purple-500 rounded hover:bg-purple-600 font-semibold"
         >
-          {showScrappedOnly ? '전체 보기' : '스크랩한 영상만 보기'}
+          {showScrappedOnly ? "전체 보기" : "스크랩한 영상만 보기"}
         </button>
-
       </div>
+
       {/* 현재 보기 상태 표시 */}
-      <div>
       <p className="mb-2 text-sm text-gray-300">
         현재 보기 모드:
-        <span className={`ml-2 px-2 py-1 rounded text-sm font-bold
-    ${showScrappedOnly ? 'bg-yellow-400 text-black' : 'bg-blue-500 text-white'}`}>
-          {showScrappedOnly ? '스크랩한 영상만 보기' : '전체 영상 보기'}
+        <span
+          className={`ml-2 px-2 py-1 rounded text-sm font-bold ${
+            showScrappedOnly
+              ? "bg-yellow-400 text-black"
+              : "bg-blue-500 text-white"
+          }`}
+        >
+          {showScrappedOnly ? "스크랩한 영상만 보기" : "전체 영상 보기"}
         </span>
       </p>
-      </div>
 
       {/* 로딩 상태 */}
       {loading && <p>⏳ 영상 불러오는 중...</p>}
@@ -80,7 +87,9 @@ export default function ScrapBoard() {
 
       {/* 영상 리스트 */}
       {!loading && (
-        <ScrapList filterIds={showScrappedOnly ? Array.from(scrappedIds) : undefined} />
+        <ScrapList
+          filterIds={showScrappedOnly ? Array.from(scrappedIds) : undefined}
+        />
       )}
     </div>
   );

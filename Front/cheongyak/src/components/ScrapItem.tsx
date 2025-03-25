@@ -1,6 +1,7 @@
 // 개별 유튜브 영상 카드 UI 컴포넌트
 import { Link } from "react-router-dom";
 import { useScrapStore } from "../hooks/useScrapStore";
+import { decode } from "html-entities";
 
 interface ScrapProps {
   scrap: {
@@ -22,18 +23,28 @@ export default function ScrapItem({ scrap }: ScrapProps) {
         <img src={scrap.thumbnail} alt={scrap.title} className="w-full h-40 object-cover" />
       </Link>
       <div className="p-4 text-black">
-        <h3 className="font-bold text-lg">{scrap.title}</h3>
+        <h3 className="font-bold text-lg">{decode(scrap.title)}</h3> 
+        {/* 문자 인코딩문제 decode 처리 */}
         <p className="text-sm mt-1">{scrap.description}</p>
 
         {/* 스크랩 버튼 */}
         <button
           onClick={() => toggleScrap(scrap.id)}
-          className={`mt-3 px-3 py-1 rounded font-semibold ${
-            isScrapped ? 'bg-yellow-400 text-black' : 'bg-gray-300 text-gray-700'
-          }`}
+          className={`mt-3 px-3 py-1 rounded font-semibold ${isScrapped ? 'bg-yellow-400 text-black' : 'bg-gray-300 text-gray-700'
+            }`}
         >
           {isScrapped ? '스크랩됨' : '스크랩하기'}
         </button>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${scrap.id}`);
+            alert("✅ 영상 URL이 복사되었습니다!");
+          }}
+          className="ml-2 bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600 text-sm"
+        >
+          URL 복사
+        </button>
+
       </div>
     </div>
   );

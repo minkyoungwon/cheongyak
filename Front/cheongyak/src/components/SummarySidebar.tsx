@@ -4,49 +4,53 @@ export default function SummarySidebar() {
   const [open, setOpen] = useState(false);
   const [videoId, setVideoId] = useState("");
   const [summary, setSummary] = useState("");
-
-const handleSummarize = async () => {
-  if (!videoId.trim()) {
-    alert("유튜브 영상 ID 또는 URL을 입력해주세요.");
-    return;
-  }
-
-  // 유튜브 URL 전체가 들어오는 경우 → videoId만 추출
-  const parsedVideoId = extractYoutubeVideoId(videoId);
-  if (!parsedVideoId) {
-    alert("유효한 유튜브 ID 또는 URL이 아닙니다.");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:4000/summary", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ videoId: parsedVideoId }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      setSummary(data.summary);
-    } else {
-      setSummary(`요약 실패: ${data.error || "서버 오류"}`);
+  const [loading, setLoading] = useState(false);
+  const handleSummarize = async () => {
+    if (!videoId.trim()) {
+      alert("유튜브 영상 ID 또는 URL을 입력해주세요.");
+      return;
     }
-  } catch (error) {
-    console.error("요약 요청 에러:", error);
-    setSummary("요약 중 오류가 발생했습니다.");
+
+    const parsedVideoId = extractYoutubeVideoId(videoId);
+    if (!parsedVideoId) {
+      alert("유효한 유튜브 ID 또는 URL이 아닙니다.");
+      return;
+    }
+
+    setLoading(true);        // ✅ 요약 시작 시 로딩 시작
+    setSummary("");          // ✅ 기존 요약 초기화
+
+    try {
+      const response = await fetch("http://localhost:4000/summary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ videoId: parsedVideoId }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSummary(data.summary);
+      } else {
+        setSummary(`요약 실패: ${data.error || "서버 오류"}`);
+      }
+    } catch (error) {
+      console.error("요약 요청 에러:", error);
+      setSummary("요약 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);     // ✅ 요청 끝나면 로딩 해제
+    }
+  };
+
+
+  function extractYoutubeVideoId(input: string): string | null {
+    // ID만 입력한 경우
+    if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+
+    // URL에서 ID 추출
+    const match = input.match(/[?&]v=([^&]+)/) || input.match(/youtu\.be\/([^?]+)/);
+    return match ? match[1] : null;
   }
-};
-
-
-function extractYoutubeVideoId(input: string): string | null {
-  // ID만 입력한 경우
-  if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
-
-  // URL에서 ID 추출
-  const match = input.match(/[?&]v=([^&]+)/) || input.match(/youtu\.be\/([^?]+)/);
-  return match ? match[1] : null;
-}
 
 
 
@@ -57,6 +61,14 @@ function extractYoutubeVideoId(input: string): string | null {
       {open && (
         <div className="w-80 bg-white shadow-xl rounded-lg p-4 text-black">
           <h3 className="font-bold text-lg mb-2">영상 요약</h3>
+
+          {loading && (
+            <div className="w-full h-2 bg-gray-200 rounded overflow-hidden mb-2">
+              <div className="h-full bg-blue-500 animate-pulse w-full" />
+            </div>
+          )}
+
+
           <input
             type="text"
             placeholder="유튜브 ID 또는 URL"

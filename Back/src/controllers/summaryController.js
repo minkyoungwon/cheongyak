@@ -1,5 +1,6 @@
 import { getYoutubeCaptions } from "../services/youtubeCaptionService.js";
 import { summarizeTextWithDeepSeek } from "../services/summaryService.js";
+import { supabase } from "../config/supabaseAdminClient.js";
 
 export const handleSummaryRequest = async (req, res) => {
   const { videoId } = req.body;
@@ -10,6 +11,13 @@ export const handleSummaryRequest = async (req, res) => {
     }
 
     const summary = await summarizeTextWithDeepSeek(captions);
+
+    // ✅ Supabase 저장
+    await supabase.from("summaries").insert({
+      video_id: videoId,
+      summary_text: summary,
+    });
+
     res.json({ summary });
   } catch (err) {
     console.error("요약 실패:", err);
