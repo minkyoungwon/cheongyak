@@ -9,7 +9,7 @@ export default function ScrapBoard() {
   const scrappedIds = useScrapStore((state) => state.scrappedIds);
   const loadScrapsFromSupabase = useScrapStore((state) => state.loadScrapsFromSupabase);
 
-  const [query, setQuery] = useState("청약");
+  const [query, setQuery] = useState("아영이네");
   const [loading, setLoading] = useState(false);
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
 
@@ -33,7 +33,9 @@ export default function ScrapBoard() {
   }, []);
 
   return (
-    <div className="p-8 text-white bg-gray-900 min-h-screen">
+    <div className="p-8 text-gray-800 bg-gradient-to-br from-purple-50 via-white to-gray-100 min-h-screen">
+
+      
       <h2 className="text-3xl font-bold mb-6">유튜브 청약 영상 검색</h2>
 
       {/* 검색창 */}
@@ -47,14 +49,14 @@ export default function ScrapBoard() {
         />
         <button
           onClick={handleSearch}
-          className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600 font-semibold"
+          className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600 font-semibold text-white"
         >
           검색
         </button>
       </div>
 
       {/* 스크랩 필터 버튼 */}
-      <div className="mb-4">
+      <div className="mb-4 text-white">
         <button
           onClick={() => setShowScrappedOnly((prev) => !prev)}
           className="px-4 py-2 bg-purple-500 rounded hover:bg-purple-600 font-semibold"
@@ -64,7 +66,7 @@ export default function ScrapBoard() {
       </div>
 
       {/* 현재 보기 상태 표시 */}
-      <p className="mb-2 text-sm text-gray-300">
+      <p className="mb-2 text-sm text-black-900">
         현재 보기 모드:
         <span
           className={`ml-2 px-2 py-1 rounded text-sm font-bold ${

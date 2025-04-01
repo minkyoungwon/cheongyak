@@ -1,33 +1,63 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom"; // ✅ 추가
+import { useNavigate } from "react-router-dom";
 
 export default function Intro() {
+  const navigate = useNavigate();
+  const role = localStorage.getItem("role");
+  const code = localStorage.getItem("invite_code");
+
+  const handleLogout = () => {
+    localStorage.removeItem("invite_code");
+    localStorage.removeItem("role");
+    navigate("/login");
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full text-white">
-      <motion.h1
-        className="text-6xl font-extrabold mb-12 text-center"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        ChoengYak
-      </motion.h1>
+    <div className="min-h-screen bg-purple-100 text-white flex flex-col justify-center items-center space-y-6">
+      <h1 className="text-3xl font-bold animate-text-fade">
+        청약한눈에
+      </h1>
 
-      <div className="flex flex-row space-x-6">
-        {/* ✅ Link 컴포넌트로 교체 */}
-        <Link
-          to="/notices"
-          className="px-6 py-4 text-lg font-semibold text-white bg-blue-500 rounded-lg border-4 border-white shadow-lg transition hover:bg-white hover:text-blue-600 text-center w-56"
-        >
-          cheongYak info
-        </Link>
+      <p className="text-gray-400">청약 공고와 유튜브를 한눈에!</p>
 
-        <Link
-          to="/youtube-scrap"
-          className="px-6 py-4 text-lg font-semibold text-white bg-green-500 rounded-lg border-4 border-white shadow-lg transition hover:bg-white hover:text-green-600 text-center w-56"
+      {/* 👋 사용자 환영 메시지 */}
+      {code && (
+        <p className="text-lg text-green-600">
+          👋 {code} 님 반갑습니다!
+        </p>
+      )}
+
+      <div className="flex space-x-4">
+        <button
+          onClick={() => navigate("/notices")}
+          className="bg-blue-500 px-6 py-2 rounded hover:bg-blue-600"
         >
-          youtube cheongYak scrap
-        </Link>
+          청약 공고 게시판
+        </button>
+        <button
+          onClick={() => navigate("/youtube-scrap")}
+          className="bg-green-500 px-6 py-2 rounded hover:bg-green-600"
+        >
+          청약 유튜브 정보 게시판
+        </button>
       </div>
+
+      {/* admin일 때만 발급 버튼 표시 */}
+      {role === "admin" && (
+        <button
+          onClick={() => navigate("/admin/invite")}
+          className="mt-4 bg-yellow-500 px-6 py-2 rounded hover:bg-yellow-600"
+        >
+          초대코드 발급하기
+        </button>
+      )}
+
+      {/* 로그아웃 버튼은 모두에게 표시 */}
+      <button
+        onClick={handleLogout}
+        className="mt-4 text-sm text-gray-400 underline hover:text-white"
+      >
+        로그아웃
+      </button>
     </div>
   );
 }

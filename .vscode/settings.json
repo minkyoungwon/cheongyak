@@ -7,6 +7,14 @@
 		{
 			"folderPath": "Scrap_youtube\\Back\\",
 			"color": "foldercolorizer.color_cc6633"
+		},
+		{
+			"folderPath": "Scrap_youtube\\Front\\cheongyak\\.env\\",
+			"badge": "😊"
+		},
+		{
+			"folderPath": "Scrap_youtube\\Back\\src\\.env\\",
+			"badge": "😂"
 		}
 	]
 }

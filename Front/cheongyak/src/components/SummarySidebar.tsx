@@ -5,6 +5,7 @@ export default function SummarySidebar() {
   const [videoId, setVideoId] = useState("");
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleSummarize = async () => {
     if (!videoId.trim()) {
       alert("유튜브 영상 ID 또는 URL을 입력해주세요.");
@@ -17,8 +18,8 @@ export default function SummarySidebar() {
       return;
     }
 
-    setLoading(true);        // ✅ 요약 시작 시 로딩 시작
-    setSummary("");          // ✅ 기존 요약 초기화
+    setLoading(true);
+    setSummary("");
 
     try {
       const response = await fetch("http://localhost:4000/summary", {
@@ -31,6 +32,23 @@ export default function SummarySidebar() {
 
       if (response.ok) {
         setSummary(data.summary);
+
+        // ✅ DB에 요약 저장
+        const saveRes = await fetch("http://localhost:4000/summary/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            videoId: parsedVideoId,
+            summary: data.summary,
+            createdBy: localStorage.getItem("invite_code"),
+          }),
+        });
+
+        if (!saveRes.ok) {
+          console.warn("❌ 요약 저장 실패");
+        } else {
+          console.log("✅ 요약 저장 성공");
+        }
       } else {
         setSummary(`요약 실패: ${data.error || "서버 오류"}`);
       }
@@ -38,26 +56,18 @@ export default function SummarySidebar() {
       console.error("요약 요청 에러:", error);
       setSummary("요약 중 오류가 발생했습니다.");
     } finally {
-      setLoading(false);     // ✅ 요청 끝나면 로딩 해제
+      setLoading(false);
     }
   };
 
-
   function extractYoutubeVideoId(input: string): string | null {
-    // ID만 입력한 경우
     if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
-
-    // URL에서 ID 추출
     const match = input.match(/[?&]v=([^&]+)/) || input.match(/youtu\.be\/([^?]+)/);
     return match ? match[1] : null;
   }
 
-
-
-
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      {/* 요약창 본체 */}
       {open && (
         <div className="w-80 bg-white shadow-xl rounded-lg p-4 text-black">
           <h3 className="font-bold text-lg mb-2">영상 요약</h3>
@@ -67,7 +77,6 @@ export default function SummarySidebar() {
               <div className="h-full bg-blue-500 animate-pulse w-full" />
             </div>
           )}
-
 
           <input
             type="text"
@@ -83,12 +92,11 @@ export default function SummarySidebar() {
             요약 요청
           </button>
           {summary && (
-            <div className="bg-gray-100 p-2 rounded text-sm">{summary}</div>
+            <div className="bg-gray-100 p-2 rounded text-sm whitespace-pre-wrap">{summary}</div>
           )}
         </div>
       )}
 
-      {/* 열고 닫는 버튼 */}
       <button
         onClick={() => setOpen(!open)}
         className="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700"

@@ -9,6 +9,7 @@ interface ScrapProps {
     title: string;
     description: string;
     thumbnail: string;
+    upload_date?: string;
   };
 }
 
@@ -23,9 +24,15 @@ export default function ScrapItem({ scrap }: ScrapProps) {
         <img src={scrap.thumbnail} alt={scrap.title} className="w-full h-40 object-cover" />
       </Link>
       <div className="p-4 text-black">
-        <h3 className="font-bold text-lg">{decode(scrap.title)}</h3> 
+        <h3 className="font-bold text-lg">{decode(scrap.title)}</h3>
         {/* 문자 인코딩문제 decode 처리 */}
         <p className="text-sm mt-1">{scrap.description}</p>
+
+        <p className="text-sm text-gray-600 mt-1">
+          업로드: {scrap.upload_date ? new Date(scrap.upload_date).toLocaleDateString("ko-KR") : "알 수 없음"}
+        </p>
+
+
 
         {/* 스크랩 버튼 */}
         <button
