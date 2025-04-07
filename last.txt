@@ -1,0 +1,64 @@
+
+03.30 
+published_at 을 전부다 upload_data로 바꾸던 도중에
+문제점을 해결 못하고 나서 다시 상태를 보니깐
+영상 불러오기가 안되고 있음
+api 제한이 최대치여서 그런것인지
+아니면 코드가 문제인지 확인 진행중 
+
+=> 확인 결과 api 사용량 최대치 여서 그런것으로 
+
+<br>
+기능 구현
+알림
+스크랩 = 엑셀파일 다운 및 파일 요약
+
+
+
+<h1 className="text-3xl font-bold animate-text-fade">
+  청약한눈에
+</h1>
+
+이런식으로 애니메이션 넣을수 있음
+tailwindconfig.js 내용 수정 한거 확인해보기
+
+
+04.01
+<h1>현재 요약하기 버튼이 로그인 시에만 나오게 해야함
+<h2>db 연동 하여서 summaries 에 해야하는데 현재 
+요약 저장 실패: insert or update on table "summaries" violates foreign key constraint "summaries_video_id_fkey"
+에러 뜨고 있음 외래키 조건 
+<h3>알림 기능 구현 안함
+<h4>상세보기 창에서 코드를 수정하면 api 불러오는게 에러가 나는데
+이거는 수정사항이 아니라 알아둬야하는사항 
+
+
+
+
+
+추가 부분적인 
+
+<h3>supabase 정책 확인 해야하는 부분이 많은데 
+SELECT policyname, permissive, roles, cmd, qual
+FROM pg_policies
+WHERE tablename = 'summaries';
+
+<h3>-- 전체 정책 확인하기
+SELECT *
+FROM pg_policies;
+통하여서 확인 가능 했음 
+
+<h4>--- 쇼츠인지 동영상인지 구분 하는 방법
+=> 이게 로직상으로 힘들어서
+영상 길이 60초 이하
+화면 설정 등으로 구분 짓어서 해야하는데
+이게 생각보다 어려움
+youtube api 측에서 따로 지정해주는 명이 없고
+영상  길이가 60초 이상이 넘어가는게 있고
+화면 길이 조건이 어떤것은 영상 안에서 쇼츠를 틀어주는 조건등이
+있어서 
+쇼츠 구분은 현재 어려움
+할라면 아예 로직이 아니라 모델을 파야함
+
+
+<h1>db에는 저장이 되는데 db에 맞게 매칭이 안되고 있음 영상별 집계가 안되고 있음 => 해결 되었음 
