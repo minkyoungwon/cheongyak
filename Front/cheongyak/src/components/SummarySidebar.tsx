@@ -70,7 +70,7 @@ export default function SummarySidebar() {
     <div className="fixed bottom-4 right-4 z-50">
       {open && (
         <div className="w-80 bg-white shadow-xl rounded-lg p-4 text-black">
-          <h3 className="font-bold text-lg mb-2">영상 요약</h3>
+          <h3 className="font-bold text-lg mb-2">원하는 영상 요약 하는곳이라구</h3>
 
           {loading && (
             <div className="w-full h-2 bg-gray-200 rounded overflow-hidden mb-2">
@@ -101,7 +101,7 @@ export default function SummarySidebar() {
         onClick={() => setOpen(!open)}
         className="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700"
       >
-        {open ? "닫기" : "요약하기"}
+        {open ? "닫기" : "원하는 영상 URL 넣으면 요약하는곳"}
       </button>
     </div>
   );

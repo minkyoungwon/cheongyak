@@ -12,8 +12,16 @@ export default function ScrapBoard() {
   const [query, setQuery] = useState("아영이네");
   const [loading, setLoading] = useState(false);
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
+  const [filterType, setFilterType] = useState<"all" | "shorts" | "regular">("all");
 
-  // 유튜브 영상 검색
+  // 🔍 쇼츠 / 일반 영상 필터링
+  const visibleScraps = scraps.filter((item) => {
+    if (filterType === "shorts") return item.isShorts === true;
+    if (filterType === "regular") return item.isShorts === false;
+    return true;
+  });
+
+  // 🔍 검색 핸들링
   const handleSearch = async () => {
     setLoading(true);
     try {
@@ -26,7 +34,7 @@ export default function ScrapBoard() {
     }
   };
 
-  // 최초 진입 시 유튜브 영상 불러오기 + 스크랩 ID 불러오기
+  // ✅ 최초 진입 시 데이터 로딩
   useEffect(() => {
     handleSearch();
     loadScrapsFromSupabase();
@@ -34,11 +42,9 @@ export default function ScrapBoard() {
 
   return (
     <div className="p-8 text-gray-800 bg-gradient-to-br from-purple-50 via-white to-gray-100 min-h-screen">
-
-      
       <h2 className="text-3xl font-bold mb-6">유튜브 청약 영상 검색</h2>
 
-      {/* 검색창 */}
+      {/* 🔍 검색창 */}
       <div className="mb-6 flex gap-2">
         <input
           type="text"
@@ -55,7 +61,29 @@ export default function ScrapBoard() {
         </button>
       </div>
 
-      {/* 스크랩 필터 버튼 */}
+      {/* 🎛️ 필터 버튼
+      <div className="mb-4 text-white flex gap-2">
+        <button
+          onClick={() => setFilterType("all")}
+          className={`px-4 py-2 rounded font-semibold ${filterType === "all" ? "bg-blue-600" : "bg-gray-400"}`}
+        >
+          전체 보기
+        </button>
+        <button
+          onClick={() => setFilterType("shorts")}
+          className={`px-4 py-2 rounded font-semibold ${filterType === "shorts" ? "bg-red-500" : "bg-gray-400"}`}
+        >
+          쇼츠만 보기
+        </button>
+        <button
+          onClick={() => setFilterType("regular")}
+          className={`px-4 py-2 rounded font-semibold ${filterType === "regular" ? "bg-green-600" : "bg-gray-400"}`}
+        >
+          일반영상만 보기
+        </button>
+      </div> */}
+
+      {/* 💾 스크랩 필터 버튼 */}
       <div className="mb-4 text-white">
         <button
           onClick={() => setShowScrappedOnly((prev) => !prev)}
@@ -65,32 +93,34 @@ export default function ScrapBoard() {
         </button>
       </div>
 
-      {/* 현재 보기 상태 표시 */}
+      {/* 📌 현재 상태 출력 */}
       <p className="mb-2 text-sm text-black-900">
         현재 보기 모드:
         <span
           className={`ml-2 px-2 py-1 rounded text-sm font-bold ${
-            showScrappedOnly
-              ? "bg-yellow-400 text-black"
-              : "bg-blue-500 text-white"
+            showScrappedOnly ? "bg-yellow-400 text-black" : "bg-blue-500 text-white"
           }`}
         >
           {showScrappedOnly ? "스크랩한 영상만 보기" : "전체 영상 보기"}
         </span>
       </p>
 
-      {/* 로딩 상태 */}
+      {/* ⏳ 로딩 */}
       {loading && <p>⏳ 영상 불러오는 중...</p>}
 
-      {/* 결과 없음 */}
+      {/* 😢 결과 없음 */}
       {!loading && scraps.length === 0 && (
         <p className="text-red-300">😢 관련된 영상을 찾을 수 없습니다.</p>
       )}
 
-      {/* 영상 리스트 */}
+      {/* ✅ 영상 리스트 */}
       {!loading && (
         <ScrapList
-          filterIds={showScrappedOnly ? Array.from(scrappedIds) : undefined}
+          filterIds={
+            showScrappedOnly
+              ? visibleScraps.filter((v) => scrappedIds.has(v.id)).map((v) => v.id)
+              : visibleScraps.map((v) => v.id)
+          }
         />
       )}
     </div>

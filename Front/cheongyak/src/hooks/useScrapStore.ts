@@ -12,10 +12,12 @@ interface Scrap {
 interface ScrapStore {
   scraps: Scrap[];
   scrappedIds: Set<string>;
-  setScraps: (scraps: Scrap[]) => void;
+  setScraps: (scraps: Scrap[]) => void;ㅏ
   toggleScrap: (id: string) => Promise<void>;
   loadScrapsFromSupabase: () => Promise<void>;
 }
+
+
 
 export const useScrapStore = create<ScrapStore>((set, get) => ({
   scraps: [],

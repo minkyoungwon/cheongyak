@@ -34,6 +34,13 @@ export default function ScrapItem({ scrap }: ScrapProps) {
 
 
 
+        <p className="text-xs mt-1 text-gray-600">
+          {scrap.isShorts ? "📱 쇼츠" : "🎬 일반 영상"}
+        </p>
+
+
+
+
         {/* 스크랩 버튼 */}
         <button
           onClick={() => toggleScrap(scrap.id)}
@@ -42,6 +49,7 @@ export default function ScrapItem({ scrap }: ScrapProps) {
         >
           {isScrapped ? '스크랩됨' : '스크랩하기'}
         </button>
+
         <button
           onClick={() => {
             navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${scrap.id}`);

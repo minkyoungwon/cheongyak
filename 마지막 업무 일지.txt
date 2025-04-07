@@ -6,9 +6,12 @@ published_at 을 전부다 upload_data로 바꾸던 도중에
 api 제한이 최대치여서 그런것인지
 아니면 코드가 문제인지 확인 진행중 
 
-
 => 확인 결과 api 사용량 최대치 여서 그런것으로 
 
+<br>
+기능 구현
+알림
+스크랩 = 엑셀파일 다운 및 파일 요약
 
 
 
@@ -21,11 +24,10 @@ tailwindconfig.js 내용 수정 한거 확인해보기
 
 
 04.01
-- 현재 요약하기 버튼이 로그인 시에만 나오게 해야함
-
-- db 연동 하여서 summaries 에 해야하는데 현재 
+<h1>현재 요약하기 버튼이 로그인 시에만 나오게 해야함
+<h2>db 연동 하여서 summaries 에 해야하는데 현재 
 요약 저장 실패: insert or update on table "summaries" violates foreign key constraint "summaries_video_id_fkey"
 에러 뜨고 있음 외래키 조건 
-
-
-- 알림 기능 구현 안함
+<h3>알림 기능 구현 안함
+<h4>상세보기 창에서 코드를 수정하면 api 불러오는게 에러가 나는데
+이거는 수정사항이 아니라 알아둬야하는사항 

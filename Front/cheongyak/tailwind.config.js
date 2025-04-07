@@ -25,6 +25,7 @@ export default {
           '0%, 100%': { color: '#ffffff' },
           '50%': { color: '#000000' },
         },
+        
       },
       animation: {
         'text-fade': 'color-fade 3s ease-in-out infinite',
