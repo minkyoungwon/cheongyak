@@ -12,7 +12,7 @@ interface Scrap {
 interface ScrapStore {
   scraps: Scrap[];
   scrappedIds: Set<string>;
-  setScraps: (scraps: Scrap[]) => void;ㅏ
+  setScraps: (scraps: Scrap[]) => void;
   toggleScrap: (id: string) => Promise<void>;
   loadScrapsFromSupabase: () => Promise<void>;
 }
