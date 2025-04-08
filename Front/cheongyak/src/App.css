@@ -53,3 +53,39 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+
+
+
+/* App.css or ScrapDetail.css */
+.loading-bar-container {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background-color: #ddd;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-top: 12px;
+}
+
+.loading-bar-animated {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  animation: loading-move 1.2s infinite ease-in-out;
+}
+
+@keyframes loading-move {
+  0% {
+    left: -50%;
+  }
+  50% {
+    left: 25%;
+  }
+  100% {
+    left: 100%;
+  }
+}

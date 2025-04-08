@@ -4,6 +4,8 @@ import { useScrapStore } from "../hooks/useScrapStore";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { decode } from "html-entities";
+import "../App.css";
+import LoadingTruck from "../components/LoadingTruck";
 
 interface Summary {
   id: number;
@@ -162,11 +164,14 @@ export default function ScrapDetail() {
         </div>
       )}
 
-      {loading && (
-        <div className="w-full h-1 bg-gray-200 mt-2 rounded overflow-hidden">
-          <div className="h-full bg-blue-500 animate-pulse w-full" />
+      {/* {loading && (
+        <div className="loading-bar-container">
+          <div className="loading-bar-animated" />
         </div>
-      )}
+      )} */}
+      {loading && <LoadingTruck />}
+
+      
 
       {/* ✅ 요약 미리보기 + 저장 */}
       {tempSummary && (
