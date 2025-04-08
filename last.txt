@@ -1,42 +1,35 @@
+<h1> 수정사항
+<h2> 추가해야할 부분
+<h3> 학습 및 알게된 내용
+<h4> 수정된 사항
+<h5> 알아둬야하는 사항
 
 03.30 
-published_at 을 전부다 upload_data로 바꾸던 도중에
+<h5>published_at 을 전부다 upload_data로 바꾸던 도중에
 문제점을 해결 못하고 나서 다시 상태를 보니깐
 영상 불러오기가 안되고 있음
 api 제한이 최대치여서 그런것인지
 아니면 코드가 문제인지 확인 진행중 
+=> 확인 결과 api 사용량 최대치 여서 그런것으로 </h5>
 
-=> 확인 결과 api 사용량 최대치 여서 그런것으로 
-
-<br>
 기능 구현
 알림
-스크랩 = 엑셀파일 다운 및 파일 요약
-
-
-
-<h1 className="text-3xl font-bold animate-text-fade">
-  청약한눈에
-</h1>
-
-이런식으로 애니메이션 넣을수 있음
-tailwindconfig.js 내용 수정 한거 확인해보기
-
+크롤링
 
 04.01
-<h1>현재 요약하기 버튼이 로그인 시에만 나오게 해야함
-<h2>db 연동 하여서 summaries 에 해야하는데 현재 
+<h1>현재 요약하기 버튼이 로그인 시에만 나오게 해야함 => 수정 완
+<h1>db 연동 하여서 summaries 에 해야하는데 현재 
 요약 저장 실패: insert or update on table "summaries" violates foreign key constraint "summaries_video_id_fkey"
-에러 뜨고 있음 외래키 조건 
-<h3>알림 기능 구현 안함
-<h4>상세보기 창에서 코드를 수정하면 api 불러오는게 에러가 나는데
-이거는 수정사항이 아니라 알아둬야하는사항 
+에러 뜨고 있음 외래키 조건  => 수정완
+
+<h2>알림 기능 구현 안함
+<h1>상세보기 창에서 코드를 수정하면 api 불러오는게 에러가 나는데 이거는 수정사항이 아니라 알아둬야하는사항 => 수정됨
 
 
-
-
-
-추가 부분적인 
+<h3> 느낌점
+supabase RLS 정책
+YOUTUBE API 에서 SHORTS 를 구분할수 있는 명세서는 따로 없는점
+ZUSTAND
 
 <h3>supabase 정책 확인 해야하는 부분이 많은데 
 SELECT policyname, permissive, roles, cmd, qual
@@ -48,7 +41,7 @@ SELECT *
 FROM pg_policies;
 통하여서 확인 가능 했음 
 
-<h4>--- 쇼츠인지 동영상인지 구분 하는 방법
+<h3>--- 쇼츠인지 동영상인지 구분 하는 방법
 => 이게 로직상으로 힘들어서
 영상 길이 60초 이하
 화면 설정 등으로 구분 짓어서 해야하는데
