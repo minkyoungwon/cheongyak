@@ -34,9 +34,9 @@ export default function ScrapItem({ scrap }: ScrapProps) {
 
 
 
-        <p className="text-xs mt-1 text-gray-600">
+        {/* <p className="text-xs mt-1 text-gray-600">
           {scrap.isShorts ? "📱 쇼츠" : "🎬 일반 영상"}
-        </p>
+        </p> */}
 
 
 

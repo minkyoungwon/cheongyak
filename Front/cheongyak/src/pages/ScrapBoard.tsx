@@ -14,12 +14,12 @@ export default function ScrapBoard() {
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
   const [filterType, setFilterType] = useState<"all" | "shorts" | "regular">("all");
 
-  // 🔍 쇼츠 / 일반 영상 필터링
-  const visibleScraps = scraps.filter((item) => {
-    if (filterType === "shorts") return item.isShorts === true;
-    if (filterType === "regular") return item.isShorts === false;
-    return true;
-  });
+  // // 🔍 쇼츠 / 일반 영상 필터링
+  // const visibleScraps = scraps.filter((item) => {
+  //   if (filterType === "shorts") return item.isShorts === true;
+  //   if (filterType === "regular") return item.isShorts === false;
+  //   return true;
+  // });
 
   // 🔍 검색 핸들링
   const handleSearch = async () => {
