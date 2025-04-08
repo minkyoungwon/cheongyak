@@ -12,9 +12,12 @@ export default function ScrapBoard() {
   const [query, setQuery] = useState("아영이네");
   const [loading, setLoading] = useState(false);
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
-  
-  
-  const [filterType, setFilterType] = useState<"all" | "shorts" | "regular">("all");
+
+
+  // const [filterType, setFilterType] = useState<"all" | "shorts" | "regular">("all"); 빌드전에는 이렇게 썼는데
+  // const filterType = "all"; // 오류가 난다면 고정값으로 깔끔하게
+  // 이렇게 수정
+  const [filterType] = useState<"all" | "shorts" | "regular">("all");
   // // 🔍 쇼츠 / 일반 영상 필터링
   const visibleScraps = scraps.filter((item) => {
     if (filterType === "shorts") return item.isShorts === true;
@@ -98,9 +101,8 @@ export default function ScrapBoard() {
       <p className="mb-2 text-sm text-black-900">
         현재 보기 모드:
         <span
-          className={`ml-2 px-2 py-1 rounded text-sm font-bold ${
-            showScrappedOnly ? "bg-yellow-400 text-black" : "bg-blue-500 text-white"
-          }`}
+          className={`ml-2 px-2 py-1 rounded text-sm font-bold ${showScrappedOnly ? "bg-yellow-400 text-black" : "bg-blue-500 text-white"
+            }`}
         >
           {showScrappedOnly ? "스크랩한 영상만 보기" : "전체 영상 보기"}
         </span>
@@ -125,7 +127,7 @@ export default function ScrapBoard() {
         />
       )}
 
-      
+
     </div>
   );
 }
