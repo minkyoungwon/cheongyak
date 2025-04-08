@@ -12,14 +12,15 @@ export default function ScrapBoard() {
   const [query, setQuery] = useState("아영이네");
   const [loading, setLoading] = useState(false);
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
+  
+  
   const [filterType, setFilterType] = useState<"all" | "shorts" | "regular">("all");
-
   // // 🔍 쇼츠 / 일반 영상 필터링
-  // const visibleScraps = scraps.filter((item) => {
-  //   if (filterType === "shorts") return item.isShorts === true;
-  //   if (filterType === "regular") return item.isShorts === false;
-  //   return true;
-  // });
+  const visibleScraps = scraps.filter((item) => {
+    if (filterType === "shorts") return item.isShorts === true;
+    if (filterType === "regular") return item.isShorts === false;
+    return true;
+  });
 
   // 🔍 검색 핸들링
   const handleSearch = async () => {
@@ -113,7 +114,7 @@ export default function ScrapBoard() {
         <p className="text-red-300">😢 관련된 영상을 찾을 수 없습니다.</p>
       )}
 
-      {/* ✅ 영상 리스트 */}
+      ✅ 영상 리스트
       {!loading && (
         <ScrapList
           filterIds={
@@ -123,6 +124,8 @@ export default function ScrapBoard() {
           }
         />
       )}
+
+      
     </div>
   );
 }
