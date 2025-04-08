@@ -7,6 +7,7 @@ interface Scrap {
   description: string;
   thumbnail: string;
   upload_date?: string;
+  isShorts?: boolean; // 배포에 문제가 있어 일단 추가 
 }
 
 interface ScrapStore {
