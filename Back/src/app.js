@@ -8,7 +8,8 @@ import authRoutes from "./routes/auth.js";
 const app = express();
 
 app.use(cors({
-  origin: ["https://cheongyak-kn32.vercel.app"], // or "*"
+  origin: ["https://cheongyak.vercel.app/login"], // or "*"
+  // origin: "*", // or "*"
   credentials: true
 }));
 app.use(express.json());

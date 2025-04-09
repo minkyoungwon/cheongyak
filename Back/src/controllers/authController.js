@@ -34,7 +34,8 @@ export const createInviteCode = async (req, res) => {
 
 export const validateInviteCode = async (req, res) => {
 	const { code } = req.body;
-	if (!code) return res.status(400).json({ error: "초대코드를 입력해주세요." });
+	if (!code) 
+    return res.status(400).json({ error: "초대코드를 입력해주세요." });
   
 	const { data, error } = await supabase
 	  .from("invite_codes")

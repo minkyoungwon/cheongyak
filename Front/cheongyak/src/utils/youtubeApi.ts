@@ -19,7 +19,6 @@ export async function fetchYoutubeVideos(query: string) {
   }
   
 
-
 //   export async function fetchYoutubeVideos(query = "청약", maxResults = 8) {
 // 	const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=${maxResults}&q=${encodeURIComponent(query)}&key=${YOUTUBE_API_KEY}`;
 // 	console.log("🔍 유튜브 API 요청 URL:", url);
