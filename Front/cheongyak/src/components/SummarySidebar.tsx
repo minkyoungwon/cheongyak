@@ -22,7 +22,7 @@ export default function SummarySidebar() {
     setSummary("");
 
     try {
-      const response = await fetch("${import.meta.env.VITE_API_URL}/summary", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/summary`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ videoId: parsedVideoId }),
