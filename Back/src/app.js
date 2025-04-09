@@ -7,11 +7,14 @@ import authRoutes from "./routes/auth.js";
 
 const app = express();
 
+import cors from "cors";
 app.use(cors({
-  origin: ["https://cheongyak.vercel.app/login"], // or "*"
-  // origin: "*", // or "*"
+  origin: ["https://cheongyak.vercel.app", "https://cheongyak-git-main-mkws-projects-da83bca3.vercel.app"],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
   credentials: true
 }));
+
 app.use(express.json());
 app.use("/youtube", youtubeRoutes);
 app.use("/summary", summaryRoutes);
