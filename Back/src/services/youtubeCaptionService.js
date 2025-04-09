@@ -11,8 +11,5 @@ export async function getYoutubeCaptions(videoId) {
     return null;
   }
 }
-
-
-
-console.log("🧪 transcript 모듈 확인:", transcript);
+// console.log("transcript 모듈 확인:", transcript);
 

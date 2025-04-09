@@ -3,11 +3,13 @@ import { isShorts } from "../utils/isShorts.js";
 import { YOUTUBE_API_KEY } from "../config/config.js";
 import fetch from "node-fetch";
 
-export const getYoutubeVideos = async (req, res) => {
+// fetchYoutubeVideos
+// getYoutubeVideos
+export const fetchYoutubeVideos = async (req, res) => { 
   const { q } = req.query;
   try {
     // 1. 검색 API 호출
-    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&order=date&q=${encodeURIComponent(q)}&key=${YOUTUBE_API_KEY}`;
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=2&order=date&q=${encodeURIComponent(q)}&key=${YOUTUBE_API_KEY}`;
     const searchRes = await fetch(searchUrl);
     const searchData = await searchRes.json();
 

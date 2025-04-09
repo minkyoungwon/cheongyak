@@ -6,7 +6,7 @@ const router = express.Router();
 // 요약 생성 요청
 router.post("/", handleSummaryRequest);
 
-// ✅ 요약 저장 요청
+// 요약 저장 요청
 router.post("/save", saveSummary);
 
 export default router;

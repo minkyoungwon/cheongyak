@@ -1,8 +1,11 @@
 import express from "express";
-import { getYoutubeVideos } from "../controllers/youtubeController.js";
+import { fetchYoutubeVideos } from "../controllers/youtubeController.js";
+
+
+// fetchYoutubeVideos
 
 const router = express.Router();
 
-router.get("/", getYoutubeVideos);
+router.get("/", fetchYoutubeVideos);
 
 export default router;

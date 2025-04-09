@@ -38,15 +38,15 @@
 
 // utils/isShorts.js
 
-// export function isShorts({ duration, title, description, thumbnail }) {
-// 	const match = duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
-// 	const minutes = parseInt(match?.[1] || "0");
-// 	const seconds = parseInt(match?.[2] || "0");
-// 	const totalSeconds = minutes * 60 + seconds;
+export function isShorts({ duration, title, description, thumbnail }) {
+	const match = duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
+	const minutes = parseInt(match?.[1] || "0");
+	const seconds = parseInt(match?.[2] || "0");
+	const totalSeconds = minutes * 60 + seconds;
   
-// 	const hasShortsTag = (title + " " + description).toLowerCase().includes("#shorts");
-// 	const isVerticalThumbnail = thumbnail?.height > thumbnail?.width;
+	const hasShortsTag = (title + " " + description).toLowerCase().includes("#shorts");
+	const isVerticalThumbnail = thumbnail?.height > thumbnail?.width;
   
-// 	return totalSeconds <= 70 || hasShortsTag || isVerticalThumbnail;
-//   }
+	return totalSeconds <= 70 || hasShortsTag || isVerticalThumbnail;
+  }
   
