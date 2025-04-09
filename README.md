@@ -1,7 +1,7 @@
 # 📌 Project: 청약 알리미 플랫폼
 
 # 프론트만 배포 상태
-https://cheongyak-kn32.vercel.app/
+
 
 # 백 배포 이후 천천히 기능 추가하는것으로.....
 
