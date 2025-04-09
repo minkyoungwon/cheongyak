@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import youtubeRoutes from "./routes/youtube.js";
 import { PORT } from "./config/config.js";
 import summaryRoutes from "./routes/summary.js";
