@@ -3,6 +3,7 @@ import { useScrapStore } from "../hooks/useScrapStore";
 import { fetchYoutubeVideos } from "../utils/youtubeApi";
 import ScrapList from "../components/ScrapList";
 
+
 export default function ScrapBoard() {
   const setScraps = useScrapStore((state) => state.setScraps);
   const scraps = useScrapStore((state) => state.scraps);

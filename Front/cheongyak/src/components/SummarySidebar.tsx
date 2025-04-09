@@ -22,7 +22,7 @@ export default function SummarySidebar() {
     setSummary("");
 
     try {
-      const response = await fetch("http://localhost:4000/summary", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/summary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ videoId: parsedVideoId }),
@@ -34,7 +34,7 @@ export default function SummarySidebar() {
         setSummary(data.summary);
 
         // ✅ DB에 요약 저장
-        const saveRes = await fetch("http://localhost:4000/summary/save", {
+        const saveRes = await fetch(`${import.meta.env.VITE_API_URL}/summary/save`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

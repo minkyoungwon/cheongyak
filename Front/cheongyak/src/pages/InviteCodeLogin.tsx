@@ -9,7 +9,7 @@ export default function InviteCodeLogin() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const response = await fetch("http://localhost:4000/auth/validate", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/validate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code }),

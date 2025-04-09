@@ -11,8 +11,9 @@
   
 
   // utils/youtubeApi.ts
+
 export async function fetchYoutubeVideos(query: string) {
-	const res = await fetch(`http://localhost:4000/youtube?q=${encodeURIComponent(query)}`);
+	const res = await fetch(`${import.meta.env.VITE_API_URL}/youtube?q=${encodeURIComponent(query)}`);
 	const data = await res.json();
 	return data;
   }

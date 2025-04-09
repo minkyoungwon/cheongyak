@@ -7,6 +7,7 @@ import { decode } from "html-entities";
 import "../App.css";
 import LoadingTruck from "../components/LoadingTruck";
 
+
 interface Summary {
   id: number;
   video_id: string;
@@ -37,7 +38,7 @@ export default function ScrapDetail() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:4000/summary", {
+      const res = await fetch(`http://localhost:4000/summary`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ videoId }),
@@ -74,7 +75,7 @@ export default function ScrapDetail() {
 
     // ✅ 그리고 나서 summaries에 저장
 
-    const saveRes = await fetch("http://localhost:4000/summary/save", {
+    const saveRes = await fetch(`${import.meta.env.VITE_API_URL}/summary/save`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ videoId, summary: tempSummary, createdBy }),
