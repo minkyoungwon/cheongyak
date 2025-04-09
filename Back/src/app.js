@@ -9,7 +9,7 @@ const app = express();
 
 import cors from "cors";
 app.use(cors({
-  origin: ["https://cheongyak.vercel.app", "https://cheongyak-git-main-mkws-projects-da83bca3.vercel.app"],
+  origin: ["https://cheongyak.vercel.app","https://cheongyak.vercel.app/login" ,"https://cheongyak-git-main-mkws-projects-da83bca3.vercel.app"],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
   credentials: true
