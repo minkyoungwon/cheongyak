@@ -1,5 +1,5 @@
 # 📌 Project: 청약 알리미 플랫폼
-
+## 첫 로그인시 백엔드 배포 프리티어로 인하여 속도 매우매우 느림
 # https://cheongyak.vercel.app/
 # 배포 완료
 
