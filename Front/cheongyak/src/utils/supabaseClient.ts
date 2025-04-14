@@ -3,7 +3,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 // ✅ 디버깅 로그: .env에서 값이 잘 불러와졌는지 확인
-console.log("env 확인 👉", import.meta.env);
+// console.log("env 확인 👉", import.meta.env);
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
