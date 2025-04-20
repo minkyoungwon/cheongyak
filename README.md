@@ -43,19 +43,6 @@
 
 ---
 
-## 🖼️ 화면 미리보기
-
-### 🔑 로그인 화면  
-초대코드 입력 후 접속 (예시: `admin`)
-
-<img src="![초기 로그인 화면 처양ㄱ](https://github.com/user-attachments/assets/a8add256-d2b0-44b6-95e3-be76cc072327)" width="600"/>
-
-### 🏠 메인 페이지  
-청약 공고 목록 및 유튜브 추천 콘텐츠 확인
-
-<img src="https://user-images.githubusercontent.com/your-image-main.png" width="600"/>
-
----
 
 ## 🧩 시스템 구조도
 
