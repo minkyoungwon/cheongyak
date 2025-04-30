@@ -10,6 +10,8 @@ export const handleSummaryRequest = async (req, res) => {
     const captions = await getYoutubeCaptions(videoId);
     if (!captions) {
       return res.status(404).json({ error: "자막을 불러올 수 없습니다." });
+      console.error("자막을 불러올 수 없습니다.", videoId);
+      console.log("자막을 불러올 수 없는 이유가 있습니다 : ", videoId);
     }
 
     const summary = await summarizeTextWithDeepSeek(captions);
