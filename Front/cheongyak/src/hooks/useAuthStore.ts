@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-//import { supabase } from '../utils/supabaseClient'; // 잠시 주석처리 
+// supabase 클라이언트는 현재 사용하지 않음
 
 interface User {
   id: string;
@@ -16,7 +16,7 @@ interface AuthStore {
   checkAuth: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthStore>((set, get) => ({
+export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   loading: true,
 

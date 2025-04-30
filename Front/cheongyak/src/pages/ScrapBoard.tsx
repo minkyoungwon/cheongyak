@@ -15,7 +15,17 @@ export default function ScrapBoard() {
   const [query, setQuery] = useState("아영이네");
   const [loading, setLoading] = useState(false);
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
-  const [lastSearchResult, setLastSearchResult] = useState<any[]>([]);
+  // 비디오 타입 정의
+  interface Video {
+    id: string;
+    title: string;
+    description: string;
+    thumbnail: string;
+    upload_date: string;
+    isShorts?: boolean;
+  }
+
+  const [lastSearchResult, setLastSearchResult] = useState<Video[]>([]);
   const [showNotifyButton, setShowNotifyButton] = useState(false);
   const [notifying, setNotifying] = useState(false);
 
@@ -34,12 +44,12 @@ export default function ScrapBoard() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const videos = await fetchYoutubeVideos(query);
+      const videos = await fetchYoutubeVideos(query) as Video[];
       
       // 이전 검색 결과와 비교하여 새 동영상이 있는지 확인
       // id 값에 타입을 명시해달라고 하는데 
-      const isNewVideos = videos.some((video: {id: string}) => {
-        return !lastSearchResult.some((lastVideo: {id: string}) => lastVideo.id === video.id);
+      const isNewVideos = videos.some((video: Video) => {
+        return !lastSearchResult.some((lastVideo: Video) => lastVideo.id === video.id);
       });
       
       // 관리자만 새 동영상 알림 버튼 표시
