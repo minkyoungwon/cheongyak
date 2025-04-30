@@ -37,8 +37,9 @@ export default function ScrapBoard() {
       const videos = await fetchYoutubeVideos(query);
       
       // 이전 검색 결과와 비교하여 새 동영상이 있는지 확인
-      const isNewVideos = videos.some(video => {
-        return !lastSearchResult.some(lastVideo => lastVideo.id === video.id);
+      // id 값에 타입을 명시해달라고 하는데 
+      const isNewVideos = videos.some((video: {id: string}) => {
+        return !lastSearchResult.some((lastVideo: {id: string}) => lastVideo.id === video.id);
       });
       
       // 관리자만 새 동영상 알림 버튼 표시

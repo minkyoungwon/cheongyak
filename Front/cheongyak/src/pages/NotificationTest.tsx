@@ -6,7 +6,7 @@ import { sendManualNotification } from "../utils/notificationApi";
 export default function NotificationTest() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false); // 알림 빌드전 임시 주석
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [form, setForm] = useState({
     title: "",

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { supabase } from '../utils/supabaseClient';
+//import { supabase } from '../utils/supabaseClient'; // 잠시 주석처리 
 
 interface User {
   id: string;
