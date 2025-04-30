@@ -2,18 +2,22 @@ import { useEffect, useState } from "react";
 import { useScrapStore } from "../hooks/useScrapStore";
 import { fetchYoutubeVideos } from "../utils/youtubeApi";
 import ScrapList from "../components/ScrapList";
-
+import { sendNewVideoNotification } from "../utils/notificationApi";
+import { useAuthStore } from "../hooks/useAuthStore";
 
 export default function ScrapBoard() {
   const setScraps = useScrapStore((state) => state.setScraps);
   const scraps = useScrapStore((state) => state.scraps);
   const scrappedIds = useScrapStore((state) => state.scrappedIds);
   const loadScrapsFromSupabase = useScrapStore((state) => state.loadScrapsFromSupabase);
+  const { user } = useAuthStore();
 
   const [query, setQuery] = useState("아영이네");
   const [loading, setLoading] = useState(false);
   const [showScrappedOnly, setShowScrappedOnly] = useState(false);
-
+  const [lastSearchResult, setLastSearchResult] = useState<any[]>([]);
+  const [showNotifyButton, setShowNotifyButton] = useState(false);
+  const [notifying, setNotifying] = useState(false);
 
   // const [filterType, setFilterType] = useState<"all" | "shorts" | "regular">("all"); 빌드전에는 이렇게 썼는데
   // const filterType = "all"; // 오류가 난다면 고정값으로 깔끔하게
@@ -31,11 +35,40 @@ export default function ScrapBoard() {
     setLoading(true);
     try {
       const videos = await fetchYoutubeVideos(query);
+      
+      // 이전 검색 결과와 비교하여 새 동영상이 있는지 확인
+      const isNewVideos = videos.some(video => {
+        return !lastSearchResult.some(lastVideo => lastVideo.id === video.id);
+      });
+      
+      // 관리자만 새 동영상 알림 버튼 표시
+      setShowNotifyButton(isNewVideos && user?.role === "admin");
+      setLastSearchResult(videos);
       setScraps(videos);
     } catch (error) {
       console.error("유튜브 영상 불러오기 실패", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 새 동영상 알림 전송
+  const sendNotification = async () => {
+    if (!lastSearchResult.length) return;
+    
+    setNotifying(true);
+    try {
+      // 가장 최근 동영상에 대해 알림 전송
+      const latestVideo = lastSearchResult[0];
+      await sendNewVideoNotification(latestVideo, user?.id);
+      
+      alert("새 동영상 알림이 성공적으로 전송되었습니다.");
+      setShowNotifyButton(false);
+    } catch (error) {
+      console.error("알림 전송 실패:", error);
+      alert("알림 전송 시 오류가 발생했습니다.");
+    } finally {
+      setNotifying(false);
     }
   };
 
@@ -64,6 +97,16 @@ export default function ScrapBoard() {
         >
           검색
         </button>
+        
+        {showNotifyButton && (
+          <button
+            onClick={sendNotification}
+            disabled={notifying}
+            className={`px-4 py-2 ${notifying ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'} rounded font-semibold text-white`}
+          >
+            {notifying ? '알림 전송 중...' : '새 동영상 알림 보내기'}
+          </button>
+        )}
       </div>
 
       {/* 🎛️ 필터 버튼
@@ -117,7 +160,7 @@ export default function ScrapBoard() {
         <p className="text-red-300">😢 관련된 영상을 찾을 수 없습니다.</p>
       )}
 
-      ✅ 영상 리스트
+      {/* ✅ 영상 리스트 */}
       {!loading && (
         <ScrapList
           filterIds={
@@ -127,8 +170,6 @@ export default function ScrapBoard() {
           }
         />
       )}
-
-
     </div>
   );
 }
